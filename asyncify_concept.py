@@ -2,10 +2,8 @@ import asyncio
 import concurrent.futures
 
 # Concept
-# Make anything IO asyncable
+# Make anything IO asyncable. 
 # Could used cleanup
-# Obvious very rough
-# will still waste time awaiting the sleep
 
 # probably doesn't need to be a class
 class Wrapper:
