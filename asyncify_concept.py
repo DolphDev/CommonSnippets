@@ -27,3 +27,23 @@ def asyncify(function):
 			pass
 		return job.result
 	return f
+
+
+# Class isn't needed
+
+def asyncify(function):
+    async def wrapped(*args, **kwargs):
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            job = executor.submit(function, *args, **kwargs)
+            while not job.done():
+                await asyncio.sleep(0.05)
+            return job.result()
+    return wrapped
+
+
+# If you don't mine getting the event loop
+def asyncify(func):
+    async def wrapper(*args, **kwargs):
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(None, func, *args, **kwargs)
+    return wrapper
